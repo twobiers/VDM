@@ -34,9 +34,6 @@ spec:
         env:
         - name: PGDATA
           value: /data/pgdata
-        resources:
-          limits: 
-            memory: 256Mi
       
   volumeClaimTemplates:
     - metadata:

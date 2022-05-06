@@ -25,11 +25,4 @@ spec:
           name: cache
           ports:
             - containerPort: 11211
-          resources:
-            limits:
-              cpu: 2000m
-              memory: 512Mi
-            requests:
-              cpu: 100m
-              memory: 64Mi
       restartPolicy: Always
