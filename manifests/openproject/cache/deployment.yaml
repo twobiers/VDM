@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openproject-cache
+  namespace: openproject
+  labels:
+    app.kubernetes.io/name: openproject
+    app.kubernetes.io/instance: openproject-cache
+    app.kubernetes.io/part-of: openproject
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+        app.kubernetes.io/name: openproject
+        app.kubernetes.io/instance: openproject-cache
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: openproject
+        app.kubernetes.io/instance: openproject-cache
+    spec:
+      containers:
+        - image: memcached
+          name: cache
+          ports:
+            - containerPort: 11211
+          resources:
+            limits:
+              cpu: 2000m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 64Mi
+      restartPolicy: Always

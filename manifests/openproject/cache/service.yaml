@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: openproject-cache
+  namespace: openproject
+  labels:
+    app.kubernetes.io/name: lb
+    app.kubernetes.io/part-of: openproject
+spec:
+  selector:
+    app.kubernetes.io/instance: openproject-cache
+  type: ClusterIP
+  ports:
+    - port: 11211
+      targetPort: 11211

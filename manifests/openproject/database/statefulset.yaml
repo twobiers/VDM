@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: openproject-db
+  namespace: openproject
+  labels:
+    app.kubernetes.io/name: postgres
+    app.kubernetes.io/instance: openproject-db
+    app.kubernetes.io/part-of: openproject
+spec:
+  serviceName: openproject-db
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: postgres
+      app.kubernetes.io/instance: openproject-db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: postgres
+        app.kubernetes.io/instance: openproject-db
+    spec:
+      containers:
+      - name: postgresql-db
+        image: postgres:13
+        ports:
+          - containerPort: 5342
+        volumeMounts:
+        - name: openroject-db-data
+          mountPath: /data
+        envFrom:
+        - configMapRef:
+            name: openproject-db-config
+        env:
+        - name: PGDATA
+          value: /data/pgdata
+        resources:
+          limits: 
+            memory: 256Mi
+      
+  volumeClaimTemplates:
+    - metadata:
+        name: openroject-db-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 2Gi

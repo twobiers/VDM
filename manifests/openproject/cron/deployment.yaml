@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openproject-cron
+  namespace: openproject
+  labels:
+    app.kubernetes.io/name: openproject-community
+    app.kubernetes.io/instance: openproject-cron
+    app.kubernetes.io/part-of: openproject
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: openproject-community
+      app.kubernetes.io/instance: openproject-cron
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: openproject-community
+        app.kubernetes.io/instance: openproject-cron
+    spec:
+      containers:
+        - name: openproject-community
+          image: openproject/community:12
+          command:
+            - "./docker/prod/cron"
+          env:
+          - name: DATABASE_URL
+            value: "postgres://openproject:p4ssw0rd@openproject-db/openproject?pool=20&encoding=unicode&reconnect=true"
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "0.2"

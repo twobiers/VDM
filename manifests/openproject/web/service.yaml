@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: openproject-web
+  namespace: openproject
+  labels:
+    app.kubernetes.io/name: lb
+    app.kubernetes.io/part-of: openproject
+spec:
+  selector:
+    app.kubernetes.io/instance: openproject-web
+  type: LoadBalancer
+  ports:
+  - port: 8080
+    targetPort: 8080

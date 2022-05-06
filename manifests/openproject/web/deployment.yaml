@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openproject-web
+  namespace: openproject
+  labels:
+    app.kubernetes.io/name: openproject-community
+    app.kubernetes.io/instance: openproject-web
+    app.kubernetes.io/part-of: openproject
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: openproject-community
+      app.kubernetes.io/instance: openproject-web
+      app.kubernetes.io/part-of: openproject
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: openproject-community
+        app.kubernetes.io/instance: openproject-web
+        app.kubernetes.io/part-of: openproject
+    spec:
+      containers:
+        - name: openproject-community
+          image: openproject/community:12
+          command:
+            - "./docker/prod/web"
+          env:
+          - name: DATABASE_URL
+            value: "postgres://openproject:p4ssw0rd@openproject-db/openproject?pool=20&encoding=unicode&reconnect=true"
+          - name: OPENPROJECT_CACHE__MEMCACHE__SERVER
+            value: openproject-cache:11211
+          - name: OPENPROJECT_RAILS__RELATIVE__URL__ROOT
+          - name: RAILS_CACHE_STORE
+            value: memcache
+          ports:
+          - containerPort: 8080
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "0.2"

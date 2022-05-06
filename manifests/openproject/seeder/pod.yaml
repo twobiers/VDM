@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: openproject-seeder
+  namespace: openproject
+  labels:
+    app.kubernetes.io/name: openproject-community
+    app.kubernetes.io/instance: openproject-seeder
+    app.kubernetes.io/part-of: openproject
+spec:
+  restartPolicy: OnFailure
+  containers:
+    - image: openproject/community:12
+      name: seeder
+      args:
+      - ./docker/prod/seeder
+      env:
+      - name: DATABASE_URL
+        value: "postgres://openproject:p4ssw0rd@openproject-db/openproject?pool=20&encoding=unicode&reconnect=true"
+      - name: OPENPROJECT_CACHE__MEMCACHE__SERVER
+        value: openproject-cache:11211
+      - name: RAILS_CACHE_STORE
+        value: memcache
+      resources:
+        limits:
+          cpu: 2000m
+          memory: 512Mi
+        requests:
+          cpu: 100m
+          memory: 64Mi

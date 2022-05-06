@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: openproject-db
+  namespace: openproject
+  labels:
+    app.kubernetes.io/name: lb
+    app.kubernetes.io/part-of: openproject
+spec:
+  selector:
+    app.kubernetes.io/instance: openproject-db
+  type: LoadBalancer
+  ports:
+  - port: 5432
+    targetPort: 5432
