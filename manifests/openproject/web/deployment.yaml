@@ -20,6 +20,18 @@ spec:
         app.kubernetes.io/instance: openproject-web
         app.kubernetes.io/part-of: openproject
     spec:
+      initContainers:
+        - image: openproject/community:12
+          name: seeder
+          args:
+          - ./docker/prod/seeder
+          env:
+          - name: DATABASE_URL
+            value: "postgres://openproject:p4ssw0rd@openproject-db/openproject?pool=20&encoding=unicode&reconnect=true"
+          - name: OPENPROJECT_CACHE__MEMCACHE__SERVER
+            value: openproject-cache:11211
+          - name: RAILS_CACHE_STORE
+            value: memcache
       containers:
         - name: openproject-community
           image: openproject/community:12
