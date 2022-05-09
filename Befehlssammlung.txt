@@ -1,0 +1,7 @@
+Befehlssammlung:
+
+Deploy:
+kubectl apply -R -f <ordner>
+
+Namespace wechseln:
+kubectl config set-context --namespace openproject --current
