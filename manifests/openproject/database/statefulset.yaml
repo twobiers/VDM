@@ -26,18 +26,25 @@ spec:
         ports:
           - containerPort: 5342
         volumeMounts:
-        - name: openroject-db-data
+        - name: openroject-db-data-2
           mountPath: /data
         envFrom:
         - configMapRef:
             name: openproject-db-config
         env:
-        - name: PGDATA
-          value: /data/pgdata
-      
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: openproject-db-secret
+              key: username
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: openproject-db-secret
+              key: password
   volumeClaimTemplates:
     - metadata:
-        name: openroject-db-data
+        name: openroject-db-data-2
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:

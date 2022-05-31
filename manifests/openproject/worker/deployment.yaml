@@ -30,4 +30,7 @@ spec:
             - "./docker/prod/worker"
           env:
           - name: DATABASE_URL
-            value: "postgres://openproject:p4ssw0rd@openproject-db/openproject?pool=20&encoding=unicode&reconnect=true"
+            valueFrom:
+              secretKeyRef:
+                name: openproject-db-secret
+                key: url

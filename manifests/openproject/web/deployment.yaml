@@ -27,10 +27,13 @@ spec:
           - ./docker/prod/seeder
           env:
           - name: DATABASE_URL
-            value: "postgres://openproject:p4ssw0rd@openproject-db/openproject?pool=20&encoding=unicode&reconnect=true"
+            valueFrom:
+              secretKeyRef:
+                name: openproject-db-secret
+                key: url
           - name: OPENPROJECT_CACHE__MEMCACHE__SERVER
             value: openproject-cache:11211
-          - name: RAILS_CACHE_STORE
+          - name: OPENPROJECT_RAILS__CACHE_STORE
             value: memcache
       containers:
         - name: openproject-community
@@ -38,12 +41,15 @@ spec:
           command:
             - "./docker/prod/web"
           env:
-          - name: DATABASE_URL
-            value: "postgres://openproject:p4ssw0rd@openproject-db/openproject?pool=20&encoding=unicode&reconnect=true"
+          - name: DATABASE_URL 
+            valueFrom:
+              secretKeyRef:
+                name: openproject-db-secret
+                key: url
           - name: OPENPROJECT_CACHE__MEMCACHE__SERVER
             value: openproject-cache:11211
           - name: OPENPROJECT_RAILS__RELATIVE__URL__ROOT
-          - name: RAILS_CACHE_STORE
+          - name: OPENPROJECT_RAILS__CACHE_STORE
             value: memcache
           ports:
           - containerPort: 8080
