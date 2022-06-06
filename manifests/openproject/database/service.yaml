@@ -8,11 +8,14 @@ metadata:
     app.kubernetes.io/part-of: openproject
 spec:
   selector:
-    app.kubernetes.io/name: postgres
+    app.kubernetes.io/name: postgresql
     app.kubernetes.io/instance: openproject-postgresql
-  type: ClusterIP
+    app.kubernetes.io/part-of: openproject
+    app.kubernetes.io/component: database
+  type: NodePort
   ports:
   - protocol: TCP
     port: 5432
     targetPort: 5432
+    name: postgres
     

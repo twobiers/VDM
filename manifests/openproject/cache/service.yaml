@@ -8,8 +8,12 @@ metadata:
     app.kubernetes.io/part-of: openproject
 spec:
   selector:
-      app.kubernetes.io/instance: memcached-openproject
-  type: ClusterIP
+    app.kubernetes.io/name: memcached
+    app.kubernetes.io/instance: memcached-openproject
+    app.kubernetes.io/part-of: openproject
+    app.kubernetes.io/component: cache
+  type: NodePort
   ports:
     - port: 11211
       targetPort: 11211
+      name: memcached
