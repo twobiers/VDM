@@ -22,3 +22,12 @@ kubectl -n kube-system rollout status deployment metrics-server
 ```
 Kubernetes bringt "von Haus aus" nur CPU und Memory Metriken mit. Für weitere Metriken kann bspw. der
 [Prometheus-Adapter](https://github.com/kubernetes-sigs/prometheus-adapter) verwendet werden.
+
+# Secruity
+
+* Minikube verwendet standardmäßig X.509 Zertifikate, die unter `$HOME/.minikube` liegen. Diese werden automatisch generiert, lassen sich aber auch anpassen
+  * Nach [OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Kubernetes_Security_Cheat_Sheet.html#api-authentication) eigenen sich X.509 Zertifikate für kleine, nicht-produktive Cluster. Die Authentifizierung werden wir daher fürs erste dabei belassen
+* Um Network Policies in minikube verwenden zu können, muss ein CNI registriert werden, weil minikube per default keinen mitbringt. Dafür muss ein zusätzlicher Paremter beim Starten übergeben werden: `minikube start --cni calico`. So wird minikube Calico als CNI konfigurieren
+  * Zum Testen der Network Policies wird ein BusyBox container verwendet: `kubectl run busybox --rm -it --image busybox /bin/sh`
+    * Test kann dann bspw. mit folgendem Befehl passieren: `wget -q --timeout=5 http://openproject-web:8080 && echo "Successful" || echo "Not Successful"`
+  * Erst Globale Richtlinie für Zero-Trust.
