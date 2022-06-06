@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: openproject-seeder
+  namespace: openproject
+  labels:
+    app.kubernetes.io/name: openproject-community
+    app.kubernetes.io/instance: openproject-seeder
+    app.kubernetes.io/part-of: openproject
+spec:
+  containers:
+    - args:
+        - ./docker/prod/seeder
+      env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: openproject-db-secret
+              key: url
+        - name: OPENPROJECT_CACHE__MEMCACHE__SERVER
+          value: openproject-cache:11211
+        - name: OPENPROJECT_RAILS__CACHE_STORE
+          value: memcache
+      image: openproject/community:12
+      name: seeder
+      resources:
+        requests:
+          memory: "256Mi"
+          cpu: "100m"
+        limits:
+          memory: "512Mi"
+          cpu: "250m"
+  restartPolicy: OnFailure

@@ -20,21 +20,6 @@ spec:
         app.kubernetes.io/instance: openproject-web
         app.kubernetes.io/part-of: openproject
     spec:
-      initContainers:
-        - image: openproject/community:12
-          name: seeder
-          args:
-          - ./docker/prod/seeder
-          env:
-          - name: DATABASE_URL
-            valueFrom:
-              secretKeyRef:
-                name: openproject-db-secret
-                key: url
-          - name: OPENPROJECT_CACHE__MEMCACHE__SERVER
-            value: openproject-cache:11211
-          - name: OPENPROJECT_RAILS__CACHE_STORE
-            value: memcache
       containers:
         - name: openproject-community
           image: openproject/community:12
