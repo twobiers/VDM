@@ -1,0 +1,23 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: openproject-cache
+  namespace: openproject
+  labels:
+    app.kubernetes.io/name: openproject-community
+    app.kubernetes.io/instance: openproject-cache
+    app.kubernetes.io/part-of: openproject
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: openproject-cache
+  minReplicas: 1
+  maxReplicas: 2
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 10
