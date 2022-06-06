@@ -4,9 +4,10 @@ metadata:
   name: openproject-seeder
   namespace: openproject
   labels:
-    app.kubernetes.io/name: openproject-community
+    app.kubernetes.io/name: openproject
     app.kubernetes.io/instance: openproject-seeder
     app.kubernetes.io/part-of: openproject
+    app.kubernetes.io/component: seeder
 spec:
   containers:
     - args:

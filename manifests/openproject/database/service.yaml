@@ -9,7 +9,7 @@ metadata:
 spec:
   selector:
     app.kubernetes.io/name: postgres
-    app.kubernetes.io/instance: openproject-db
+    app.kubernetes.io/instance: openproject-postgresql
   type: LoadBalancer
   ports:
   - protocol: TCP

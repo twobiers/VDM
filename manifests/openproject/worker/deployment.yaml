@@ -4,21 +4,24 @@ metadata:
   name: openproject-worker
   namespace: openproject
   labels:
-    app.kubernetes.io/name: openproject-community
+    app.kubernetes.io/name: openproject
     app.kubernetes.io/instance: openproject-worker
     app.kubernetes.io/part-of: openproject
+    app.kubernetes.io/component: worker
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: openproject-community
+      app.kubernetes.io/name: openproject
       app.kubernetes.io/instance: openproject-worker
       app.kubernetes.io/part-of: openproject
+      app.kubernetes.io/component: worker
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: openproject-community
+        app.kubernetes.io/name: openproject
         app.kubernetes.io/instance: openproject-worker
         app.kubernetes.io/part-of: openproject
+        app.kubernetes.io/component: worker
     spec:
       containers:
         - name: openproject-community

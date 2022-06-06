@@ -4,9 +4,10 @@ metadata:
   name: openproject-web
   namespace: openproject
   labels:
-    app.kubernetes.io/name: openproject-community
+    app.kubernetes.io/name: openproject
     app.kubernetes.io/instance: openproject-web
     app.kubernetes.io/part-of: openproject
+    app.kubernetes.io/component: web
 spec:
   scaleTargetRef:
     apiVersion: apps/v1

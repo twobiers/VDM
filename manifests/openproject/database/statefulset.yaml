@@ -4,23 +4,26 @@ metadata:
   name: openproject-db
   namespace: openproject
   labels:
-    app.kubernetes.io/name: postgres
-    app.kubernetes.io/instance: openproject-db
+    app.kubernetes.io/name: postgresql
+    app.kubernetes.io/instance: openproject-postgresql
     app.kubernetes.io/part-of: openproject
+    app.kubernetes.io/component: database
 spec:
   serviceName: openproject-db
   selector:
     matchLabels:
-      app.kubernetes.io/name: postgres
-      app.kubernetes.io/instance: openproject-db
+      app.kubernetes.io/name: postgresql
+      app.kubernetes.io/instance: openproject-postgresql
       app.kubernetes.io/part-of: openproject
+      app.kubernetes.io/component: database
   replicas: 1
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: postgres
-        app.kubernetes.io/instance: openproject-db
+        app.kubernetes.io/name: postgresql
+        app.kubernetes.io/instance: openproject-postgresql
         app.kubernetes.io/part-of: openproject
+        app.kubernetes.io/component: database
     spec:
       containers:
       - name: postgresql-db
