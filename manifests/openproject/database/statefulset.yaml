@@ -13,12 +13,14 @@ spec:
     matchLabels:
       app.kubernetes.io/name: postgres
       app.kubernetes.io/instance: openproject-db
+      app.kubernetes.io/part-of: openproject
   replicas: 1
   template:
     metadata:
       labels:
         app.kubernetes.io/name: postgres
         app.kubernetes.io/instance: openproject-db
+        app.kubernetes.io/part-of: openproject
     spec:
       containers:
       - name: postgresql-db
