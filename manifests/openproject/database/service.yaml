@@ -4,7 +4,7 @@ metadata:
   name: openproject-db
   namespace: openproject
   labels:
-    app.kubernetes.io/name: lb
+    app.kubernetes.io/name: cip
     app.kubernetes.io/part-of: openproject
 spec:
   selector:
@@ -12,10 +12,9 @@ spec:
     app.kubernetes.io/instance: openproject-postgresql
     app.kubernetes.io/part-of: openproject
     app.kubernetes.io/component: database
-  type: NodePort
+  type: ClusterIP
   ports:
-  - protocol: TCP
-    port: 5432
+  - port: 5432
     targetPort: 5432
     name: postgres
     

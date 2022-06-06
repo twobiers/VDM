@@ -4,7 +4,7 @@ metadata:
   name: openproject-cache
   namespace: openproject
   labels:
-    app.kubernetes.io/name: lb
+    app.kubernetes.io/name: cip
     app.kubernetes.io/part-of: openproject
 spec:
   selector:
@@ -12,7 +12,7 @@ spec:
     app.kubernetes.io/instance: memcached-openproject
     app.kubernetes.io/part-of: openproject
     app.kubernetes.io/component: cache
-  type: NodePort
+  type: ClusterIP
   ports:
     - port: 11211
       targetPort: 11211
