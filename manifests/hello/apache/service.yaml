@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vdm-presentation
+  namespace: hello
+  labels:
+    app.kubernetes.io/name: cip
+    app.kubernetes.io/part-of: hello
+spec:
+  selector:
+    app.kubernetes.io/name: vdm-presentation
+    app.kubernetes.io/instance: vdm-presentation
+    app.kubernetes.io/part-of: hello
+    app.kubernetes.io/component: vdm-presentation
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 80
+    
